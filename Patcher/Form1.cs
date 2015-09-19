@@ -1,11 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
-//using System.Drawing;
 using System.IO;
-//using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -66,7 +62,7 @@ namespace Patcher
 
                 if (founded == false)
                 {
-                    MessageBox.Show("Sequence not found! Wrong file?");
+                    MessageBox.Show("Sequence not found! Valve fix it?");
                 }
                 else
                 {

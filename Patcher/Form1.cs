@@ -13,7 +13,6 @@ namespace Patcher
 {
     public partial class Form1 : Form
     {
-
         RegistryKey regKey = Registry.CurrentUser;
         public Form1()
         {
@@ -60,7 +59,6 @@ namespace Patcher
                             stream.Position = originalPosition;
                         }
 
-
                     if (stream.Length == stream.Position) break;
                     var moveBackByHalf = stream.Position - (bytesRead / 2);
                     stream.Position = moveBackByHalf;
@@ -74,9 +72,7 @@ namespace Patcher
                 {
                     MessageBox.Show("Successful patched!");
                 }
-
             }
-
         }
 
         static public int SearchBytePattern(byte[] pattern, byte[] bytes, ref List<int> position)
@@ -111,7 +107,6 @@ namespace Patcher
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             if (regKey != null)
             {
                 string bit = "win64";
@@ -131,7 +126,6 @@ namespace Patcher
                         Patch(@source, "1134", textBox1.Text);
                     }
                 }
-
             }
             else
             {

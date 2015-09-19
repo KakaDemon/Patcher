@@ -90,7 +90,7 @@
             // 
             this.openFileDialog1.DefaultExt = "dll";
             this.openFileDialog1.FileName = "client.dll";
-            this.openFileDialog1.Filter = "(client.dll)|client.dll";
+            this.openFileDialog1.Filter = "(*.dll)|*.dll";
             this.openFileDialog1.Title = "Open client.dll";
             // 
             // Form1

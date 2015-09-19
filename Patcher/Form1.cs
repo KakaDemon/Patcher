@@ -32,21 +32,14 @@ namespace Patcher
         }
 
 
-        public static void ReplaceTextInFile(string inFile, string find, string replace)
+        public static void Patch(string inFile, string find, string replace)
         {
-
-            //if (find.Length != replace.Length) throw new ArgumentException("The lenght of find and replace strings must match!");
-
             const int chunkPrefix = 1024 * 10;
-            //var findBytes = GetBytes(find);
             byte[] bytes = { 0x74, 0x63, 0x68, 0x5F, 0x6D, 0x61, 0x78, 0x00, 0x00, 0x00 };
-            //MessageBox.Show(System.Text.Encoding.UTF8.GetString(bytes));
             var findBytes = bytes;
             var replaceBytes = Combine(bytes, GetBytes(replace));
             long chunkSize = findBytes.Length * chunkPrefix;
             var f = new FileInfo(inFile);
-            //if (f.Length < chunkSize)
-            //    chunkSize = f.Length;
 
             var readBuffer = new byte[chunkSize];
 
@@ -103,7 +96,6 @@ namespace Patcher
                     }
                     if (ismatch)
                     {
-                       // MessageBox.Show("Patched!");
                         position.Add(i);
                         matches++;
                         i += pattern.Length - 1;
@@ -126,20 +118,19 @@ namespace Patcher
             {
                 string bit = "win64";
                 if (comboBox1.SelectedIndex == 1)
-                {
                     bit = "win32";
-                }
+                
                 string installpath = regKey.GetValue("SteamPath").ToString().Replace("/", @"\") + @"\steamapps\common\dota 2 beta\game\dota\bin\" + bit + @"\client.dll";
                 if (File.Exists(installpath))
                 {
-                    ReplaceTextInFile(@installpath, "1134", textBox1.Text);
+                    Patch(@installpath, "1134", textBox1.Text);
                 }
                 else
                 {
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
                         string source = openFileDialog1.FileName;
-                        ReplaceTextInFile(@source, "1134", textBox1.Text);
+                        Patch(@source, "1134", textBox1.Text);
                     }
                 }
 
@@ -149,7 +140,7 @@ namespace Patcher
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string source = openFileDialog1.FileName;
-                    ReplaceTextInFile(@source, "1134", textBox1.Text);
+                    Patch(@source, "1134", textBox1.Text);
                 }
             }
         }

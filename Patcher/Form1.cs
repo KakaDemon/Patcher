@@ -18,20 +18,17 @@ namespace Patcher
             regKey = regKey.OpenSubKey(@"Software\Valve\Steam");
         }
 
-        public static byte[] Combine(byte[] first, byte[] second)
-        {
-            byte[] ret = new byte[first.Length + second.Length];
-            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
-            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
-            return ret;
-        }
-
         public static void Patch(string inFile, string replace)
         {
             const int chunkPrefix = 1024 * 10;
             byte[] bytes = { 0x74, 0x63, 0x68, 0x5F, 0x6D, 0x61, 0x78, 0x00, 0x00, 0x00 };
             var findBytes = bytes;
-            var replaceBytes = Combine(bytes, GetBytes(replace));
+            var getBytes = Encoding.UTF8.GetBytes(replace);
+
+            byte[] replaceBytes = new byte[bytes.Length + getBytes.Length];
+            Buffer.BlockCopy(bytes, 0, replaceBytes, 0, bytes.Length);
+            Buffer.BlockCopy(getBytes, 0, replaceBytes, bytes.Length, getBytes.Length);
+
             long chunkSize = findBytes.Length * chunkPrefix;
             var f = new FileInfo(inFile);
 
@@ -94,11 +91,6 @@ namespace Patcher
             }
 
             return matches;
-        }
-
-        public static byte[] GetBytes(string text)
-        {
-            return Encoding.UTF8.GetBytes(text);
         }
 
         private void button1_Click(object sender, EventArgs e)

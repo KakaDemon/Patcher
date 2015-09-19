@@ -30,7 +30,7 @@ namespace Patcher
             return ret;
         }
 
-        public static void Patch(string inFile, string find, string replace)
+        public static void Patch(string inFile, string replace)
         {
             const int chunkPrefix = 1024 * 10;
             byte[] bytes = { 0x74, 0x63, 0x68, 0x5F, 0x6D, 0x61, 0x78, 0x00, 0x00, 0x00 };
@@ -116,14 +116,14 @@ namespace Patcher
                 string installpath = regKey.GetValue("SteamPath").ToString().Replace("/", @"\") + @"\steamapps\common\dota 2 beta\game\dota\bin\" + bit + @"\client.dll";
                 if (File.Exists(installpath))
                 {
-                    Patch(@installpath, "1134", textBox1.Text);
+                    Patch(@installpath, textBox1.Text);
                 }
                 else
                 {
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
                         string source = openFileDialog1.FileName;
-                        Patch(@source, "1134", textBox1.Text);
+                        Patch(@source, textBox1.Text);
                     }
                 }
             }
@@ -132,7 +132,7 @@ namespace Patcher
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string source = openFileDialog1.FileName;
-                    Patch(@source, "1134", textBox1.Text);
+                    Patch(@source, textBox1.Text);
                 }
             }
         }

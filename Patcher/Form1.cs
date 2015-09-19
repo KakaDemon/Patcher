@@ -31,7 +31,6 @@ namespace Patcher
             return ret;
         }
 
-
         public static void Patch(string inFile, string find, string replace)
         {
             const int chunkPrefix = 1024 * 10;
@@ -79,7 +78,6 @@ namespace Patcher
             }
 
         }
-
 
         static public int SearchBytePattern(byte[] pattern, byte[] bytes, ref List<int> position)
         {
